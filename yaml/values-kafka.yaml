@@ -1,0 +1,89 @@
+image:
+  registry: docker.io
+  repository: bitnami/kafka
+  tag: 2.6.0-debian-10-r18
+  pullPolicy: IfNotPresent
+
+fullnameOverride: kafka
+
+heapOpts: -Xmx750m -Xms750m
+
+deleteTopicEnable: false
+autoCreateTopicsEnable: false
+
+logFlushIntervalMessages: 10000
+logFlushIntervalMs: 1000
+logRetentionBytes: _1073741824
+logRetentionCheckIntervalMs: 300000
+logRetentionHours: 168
+logSegmentBytes: _1073741824
+logsDirs: /bitnami/kafka/data
+
+maxMessageBytes: _1000012
+defaultReplicationFactor: 3
+offsetsTopicReplicationFactor: 3
+transactionStateLogReplicationFactor: 3
+transactionStateLogMinIsr: 3
+
+numIoThreads: 8
+numNetworkThreads: 3
+numPartitions: 1
+numRecoveryThreadsPerDataDir: 1
+
+socketReceiveBufferBytes: 102400
+socketRequestMaxBytes: _104857600
+socketSendBufferBytes: 102400
+
+zookeeperConnectionTimeoutMs: 6000
+
+command:
+- /scripts/setup.sh
+auth:
+  clientProtocol: sasl
+  interBrokerProtocol: sasl
+  saslMechanisms: plain,scram-sha-256,scram-sha-512
+  saslInterBrokerMechanism: plain
+  tlsEndpointIdentificationAlgorithm: https
+  jaas:
+    clientUsers:
+      - user
+    clientPasswords:
+      - password
+    interBrokerUser: admin
+    interBrokerPassword: ""
+    zookeeperUser: zookeeperUser
+    zookeeperPassword: zookeeperPassword
+
+affinity: {}
+nodeSelector: {}
+tolerations: []
+
+resources:
+  limits:
+    cpu: 350m
+    memory: 900Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+service:
+  type: ClusterIP
+  port: 9092
+  internalPort: 9093
+  externalPort: 9094
+
+persistence:
+  enabled: true
+
+zookeeper:
+  enabled: true
+
+  auth:
+    enabled: true
+    clientUser: zookeeperUser
+    clientPassword: zookeeperPassword
+    serverUsers: zookeeperUser
+    serverPasswords: zookeeperPassword
+
+  metrics:
+    enabled: false

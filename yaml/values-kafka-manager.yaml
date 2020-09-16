@@ -1,0 +1,29 @@
+serviceAccount:
+  create: true
+
+image:
+  repository: zenko/kafka-manager
+  tag: 1.3.3.22
+  pullPolicy: IfNotPresent
+
+zkHosts: "kafka-zookeeper:2181"
+
+basicAuth:
+  enabled: true
+  username: admin
+  password: admin
+
+service:
+  type: ClusterIP
+  port: 9000
+
+resources:
+ limits:
+   cpu: 300m
+   memory: 550Mi
+ requests:
+   cpu: 200m
+   memory: 500Mi
+
+zookeeper:
+  enabled: false
