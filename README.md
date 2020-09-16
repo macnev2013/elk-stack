@@ -47,4 +47,4 @@ $ make clear-certs
 $ make purge-helm
 ```
 
-Feel free to create an issue or PR for any changes.*
+Feel free to create an issue or PR for any changes.
