@@ -7,17 +7,17 @@ It contains:
   - Kibana
   - Logstash
   - Kafka
+  - Kafka-Manager
   - Zookeeper
 
 ### Configuration
 You can change the namespace in which you want to deploy be changing the `NAMESPACE` in `Makefile`.
 
 Change the `DNS` in `Makefile` if required.
-**Note this can  break the some functionality if not configured correctly.
+`**Note this can  break the some functionality if not configured correctly.`
 
 ### Initialization
 ##### Adding the repository and creating the namespace
-
 ```sh
 $ make init
 ```
@@ -28,23 +28,37 @@ $ make secrets-elastic
 $ make secrets-kibana
 ```
 
-### For installing all the components
+### For creating certs / helm
 ```sh
+$ make secret
 $ make install
 ```
 
-### For installing individual components
+### For removing certs / helm
 ```sh
-$ make install-elastic
-$ make install-kibana
-$ make install-kafka
-$ make install-logstash
+$ make clear-certs
+$ make uninstall
+```
+
+### For deploying elk with certs
+```sh
+$ make deploy
 ```
 
 ### For removing everything
 ```sh
-$ make clear-certs
-$ make purge-helm
+$ make clean
 ```
+
+### For installing individual components
+```sh
+	make install-elastic
+	make install-kibana
+	make install-kafka
+	make install-kafka-manager
+	make install-logstash
+	make install-filebeat
+```
+
 
 Feel free to create an issue or PR for any changes.

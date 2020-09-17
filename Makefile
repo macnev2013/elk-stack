@@ -84,6 +84,7 @@ uninstall:
 	helm delete -n $(NAMESPACE) filebeat
 
 deploy:
+	make init
 	make secret
 	make install
 
