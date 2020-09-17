@@ -52,12 +52,12 @@ $ make clean
 
 ### For installing individual components
 ```sh
-	make install-elastic
-	make install-kibana
-	make install-kafka
-	make install-kafka-manager
-	make install-logstash
-	make install-filebeat
+$ make install-elastic
+$ make install-kibana
+$ make install-kafka
+$ make install-kafka-manager
+$ make install-logstash
+$ make install-filebeat
 ```
 
 
