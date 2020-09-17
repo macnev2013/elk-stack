@@ -1,89 +1,60 @@
-image:
-  registry: docker.io
-  repository: bitnami/kafka
-  tag: 2.6.0-debian-10-r18
-  pullPolicy: IfNotPresent
+replicas: 1
 
-fullnameOverride: kafka
-
-heapOpts: -Xmx750m -Xms750m
-
-deleteTopicEnable: false
-autoCreateTopicsEnable: false
-
-logFlushIntervalMessages: 10000
-logFlushIntervalMs: 1000
-logRetentionBytes: _1073741824
-logRetentionCheckIntervalMs: 300000
-logRetentionHours: 168
-logSegmentBytes: _1073741824
-logsDirs: /bitnami/kafka/data
-
-maxMessageBytes: _1000012
-defaultReplicationFactor: 3
-offsetsTopicReplicationFactor: 3
-transactionStateLogReplicationFactor: 3
-transactionStateLogMinIsr: 3
-
-numIoThreads: 8
-numNetworkThreads: 3
-numPartitions: 1
-numRecoveryThreadsPerDataDir: 1
-
-socketReceiveBufferBytes: 102400
-socketRequestMaxBytes: _104857600
-socketSendBufferBytes: 102400
-
-zookeeperConnectionTimeoutMs: 6000
-
-command:
-- /scripts/setup.sh
-auth:
-  clientProtocol: sasl
-  interBrokerProtocol: sasl
-  saslMechanisms: plain,scram-sha-256,scram-sha-512
-  saslInterBrokerMechanism: plain
-  tlsEndpointIdentificationAlgorithm: https
-  jaas:
-    clientUsers:
-      - user
-    clientPasswords:
-      - password
-    interBrokerUser: admin
-    interBrokerPassword: ""
-    zookeeperUser: zookeeperUser
-    zookeeperPassword: zookeeperPassword
-
-affinity: {}
-nodeSelector: {}
-tolerations: []
+image: "confluentinc/cp-kafka"
+imageTag: "5.0.1"
+imagePullPolicy: "IfNotPresent"
 
 resources:
-  limits:
-    cpu: 350m
-    memory: 900Mi
   requests:
-    cpu: 250m
-    memory: 256Mi
+    cpu: 100m
+    memory: 500Mi
+  limits:
+    cpu: 200m
+    memory: 600Mi
 
-service:
-  type: ClusterIP
-  port: 9092
-  internalPort: 9093
-  externalPort: 9094
+kafkaHeapOptions: "-Xmx550m -Xms550m"
+
+readinessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 3
+
+terminationGracePeriodSeconds: 60
+
+configurationOverrides:
+  "confluent.support.metrics.enable": false
 
 persistence:
   enabled: true
+  size: "1Gi"
+
+prometheus:
+  jmx:
+    enabled: false
+
+jmx:
+  configMap:
+    enabled: false
+  kafka:
+    enabled: false
 
 zookeeper:
   enabled: true
-
-  auth:
-    enabled: true
-    clientUser: zookeeperUser
-    clientPassword: zookeeperPassword
-    serverUsers: zookeeperUser
-    serverPasswords: zookeeperPassword
-
-  metrics:
+  
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      cpu: 350m
+      memory: 400Mi
+  
+  persistence:
     enabled: false
+
+  image:
+    PullPolicy: "IfNotPresent"
+
+  port: 2181

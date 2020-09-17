@@ -1,3 +1,4 @@
+nameOverride: "kibana"
 fullnameOverride: "kibana"
 
 elasticsearchHosts: "https://elastic:9200"
@@ -73,10 +74,10 @@ secretMounts:
 
 resources:
   requests:
-    cpu: "500m"
-    memory: "1Gi"
+    cpu: "1000m"
+    memory: "2Gi"
   limits:
-    cpu: "700m"
+    cpu: "1000m"
     memory: "2Gi"
 
 readinessProbe:

@@ -37,10 +37,33 @@ logstashPipeline:
   uptime.conf: |
     input {
       kafka {
-        client_id => "nginx"
+        client_id => "ohcore-logs"
         bootstrap_servers => "kafka:9092"
-        topics => "nginx"
-        type => "nginx"
+        topics => "ohcore-logs"
+        type => "json"
+      }
+    }
+
+    filter {
+      json {
+        source => "message"
+      }
+
+      mutate {
+        remove_field => "host.name"
+        remove_field => "@metadata"
+        remove_field => "@version"
+        remove_field => "stream"
+        remove_field => "_type"
+        remove_field => "_score"
+        remove_field => "input.type"
+        remove_field => "agent.id"
+        remove_field => "agent.name"
+        remove_field => "agent.type"
+        remove_field => "agent.version"
+        remove_field => "agent.ephemeral_id"
+        remove_field => "log.file.path"
+        remove_field => "type"
       }
     }
 
@@ -50,7 +73,7 @@ logstashPipeline:
         cacert => "/usr/share/logstash/config/certs/elastic-certificate.crt"
         user => '${ELASTICSEARCH_USERNAME}'
         password => '${ELASTICSEARCH_PASSWORD}'
-        index => "logstash"
+        index => "logstash-%{+YYYY.MM.dd}"
       }
     }
 
