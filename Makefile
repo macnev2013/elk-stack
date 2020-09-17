@@ -9,7 +9,7 @@ init:
 	helm repo add bitnami https://charts.bitnami.com/bitnami
 	helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com
 	helm repo update
-	kubectl create ns logging
+	kubectl create ns $(NAMESPACE)
 
 secrets-elastic:
 	docker rm -f elastic-helm-charts-certs || true
