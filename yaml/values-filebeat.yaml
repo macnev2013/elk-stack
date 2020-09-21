@@ -67,3 +67,18 @@ resources:
     memory: "200Mi"
 
 updateStrategy: RollingUpdate
+
+# tolerations:
+# - key: env
+#   operator: Equal
+#   value: prod
+#   effect: NoSchedule
+# affinity:
+#   nodeAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#       - matchExpressions:
+#         - key: env
+#           operator: In
+#           values:
+#           - prod

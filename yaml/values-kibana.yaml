@@ -86,3 +86,18 @@ readinessProbe:
   periodSeconds: 10
   successThreshold: 3
   timeoutSeconds: 5
+
+# tolerations:
+# - key: env
+#   operator: Equal
+#   value: misc
+#   effect: NoSchedule
+# affinity:
+#   nodeAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#       - matchExpressions:
+#         - key: env
+#           operator: In
+#           values:
+#           - misc

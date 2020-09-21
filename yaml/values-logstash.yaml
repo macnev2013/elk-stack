@@ -93,3 +93,18 @@ extraEnvs:
       secretKeyRef:
         name: elastic-credentials
         key: password
+
+# tolerations:
+# - key: env
+#   operator: Equal
+#   value: misc
+#   effect: NoSchedule
+# affinity:
+#   nodeAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#       - matchExpressions:
+#         - key: env
+#           operator: In
+#           values:
+#           - misc
