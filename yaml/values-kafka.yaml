@@ -40,6 +40,21 @@ jmx:
   kafka:
     enabled: false
 
+# tolerations:
+# - key: env
+#   operator: Equal
+#   value: misc
+#   effect: NoSchedule
+# affinity:
+#   nodeAffinity:
+#     requiredDuringSchedulingIgnoredDuringExecution:
+#       nodeSelectorTerms:
+#       - matchExpressions:
+#         - key: env
+#           operator: In
+#           values:
+#           - misc
+
 zookeeper:
   enabled: true
   
@@ -58,3 +73,17 @@ zookeeper:
     PullPolicy: "IfNotPresent"
 
   port: 2181
+  # tolerations:
+  # - key: env
+  #   operator: Equal
+  #   value: misc
+  #   effect: NoSchedule
+  # affinity:
+  #   nodeAffinity:
+  #     requiredDuringSchedulingIgnoredDuringExecution:
+  #       nodeSelectorTerms:
+  #       - matchExpressions:
+  #         - key: env
+  #           operator: In
+  #           values:
+  #           - misc
